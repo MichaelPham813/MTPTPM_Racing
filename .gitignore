@@ -42,3 +42,5 @@ sysinfo.txt
 *.json
 *.asset
 *.txt
+
+/Assets/_MyUnity/
