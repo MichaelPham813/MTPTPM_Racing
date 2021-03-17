@@ -43,4 +43,4 @@ sysinfo.txt
 *.asset
 *.txt
 
-/Assets/_MyUnity/
+Assets/_MyUnity/
