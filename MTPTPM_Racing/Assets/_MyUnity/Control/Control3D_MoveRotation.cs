@@ -52,15 +52,25 @@ public class Control3D_MoveRotation : MonoBehaviour
     public float f_SpeedSlow = 5f;
     //Slow Speed
 
+    private bool b_Control_Move = false;
+    //Control Move when Key Pressed
+
+    private Animator a_Animator;
+    //Animator
+
     void Awake()
     {
         cs_Rigid = GetComponent<Rigid3D_Component>();
+
+        a_Animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
         Set_SpeedChance();
         Set_MoveButton();
+
+        a_Animator.SetBool("isWalking", Get_Animator_Move());
     }
 
     public void Set_MoveButton()
@@ -105,6 +115,7 @@ public class Control3D_MoveRotation : MonoBehaviour
     private void Set_Move(int i_MoveDir)
     {
         cs_Rigid.Set_MoveRotation_XZ(cs_Rigid.Get_Rotation_XZ(), f_SpeedCur * i_MoveDir);
+        b_Control_Move = true;
     }
 
     private void Set_Stop()
@@ -114,6 +125,7 @@ public class Control3D_MoveRotation : MonoBehaviour
             cs_Rigid.Set_StopX_Velocity();
             cs_Rigid.Set_StopZ_Velocity();
         }
+        b_Control_Move = false;
     }
 
     private void Set_Slow()
@@ -141,5 +153,10 @@ public class Control3D_MoveRotation : MonoBehaviour
         Gizmos.DrawWireSphere(
             transform.position + cl_Vector.Get_DegToVector_XZ(-cs_Rigid.Get_Rotation_XZ(), 1f),
             0.1f);
+    }
+
+    public bool Get_Animator_Move()
+    {
+        return b_Control_Move;
     }
 }
